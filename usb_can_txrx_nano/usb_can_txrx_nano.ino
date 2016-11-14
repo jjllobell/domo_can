@@ -1,4 +1,5 @@
-// CAN Receive Example
+// USB Gateway CAN-PC
+// Use MCP2515 - TJA1050 - NiRen Module
 //
 
 #include <mcp_can.h>
@@ -18,7 +19,8 @@ void setup()
 {
   Serial.begin(115200);
   
-  // Initialize MCP2515 running at 8MHz with a baudrate of 250kb/s and the masks and filters disabled.
+  // Initialize MCP2515 running at 8MHz with a baudrate of 250kb/s and the masks and filters disabled, 
+  // special config. to MCP2515 - TJA1050 - NiRen Module
   if(CAN0.begin(MCP_ANY, CAN_250KBPS, MCP_8MHZ) == CAN_OK)
     Serial.println("MCP2515 Initialized Successfully!");
   else
@@ -28,7 +30,7 @@ void setup()
 
   pinMode(CAN0_INT, INPUT);                            // Configuring pin for /INT input
   
-  Serial.println("MCP2515 Library Receive Example...");
+  Serial.println("MCP2515 - Ready to receive!!");
 
 }
 
@@ -36,7 +38,7 @@ void loop() {
   
    if(!digitalRead(2))  {                  // If pin 2 is low, read receive buffer
       CAN0.readMsgBuf(&rxId, &len, rxBuf); // Read data: len = data length, buf = data byte(s)
-      for(int i = 0; i<len; i++)           // Print each byte of the data
+      for(int i = 0; i<len; i++)           // Print on serial port each byte of the data
       {
         if(rxBuf[i] < 0x10)                // If data byte is less than 0x10, add a leading zero
         {
