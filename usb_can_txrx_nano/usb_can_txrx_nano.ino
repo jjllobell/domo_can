@@ -3,6 +3,7 @@
 
 #include <mcp_can.h>
 #include <SPI.h>
+#include <SerialSoftware>
 
 long unsigned int rxId;
 unsigned char len = 0;
